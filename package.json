@@ -1,4 +1,5 @@
 {
+  "homepage": "https://arturw1998.github.io/todo-app",
   "name": "todo-app",
   "version": "0.1.2",
   "private": true,
@@ -30,6 +31,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -56,6 +59,7 @@
   "devDependencies": {
     "@types/compose-function": "^0.0.30",
     "@types/react-router": "^5.1.14",
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "gh-pages": "^6.1.1"
   }
 }
