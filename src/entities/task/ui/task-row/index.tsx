@@ -1,7 +1,7 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
-import { Row } from "shared/ui/row";
+import { Row } from "shared/ui";
 import styles from "./styles.module.scss";
 
 export type TaskRowProps = PropsWithChildren<{

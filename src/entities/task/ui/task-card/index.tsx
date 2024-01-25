@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
-import { Card } from "shared/ui/card";
+import { Card } from "shared/ui";
 import styles from "./styles.module.scss";
 
 export type TaskCardProps = PropsWithChildren<{

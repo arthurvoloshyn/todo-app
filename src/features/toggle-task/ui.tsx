@@ -1,4 +1,4 @@
-import { Checkbox } from "shared/ui/checkbox";
+import { Checkbox } from "shared/ui";
 import { taskModel, taskLib } from "entities/task";
 import * as toggleTaskModel from "./model";
 
