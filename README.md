@@ -2,6 +2,16 @@
 
 <https://arturw1998.github.io/todo-app/>
 
+## To install
+
+- Copy `.env.example` as `.env`
+
+- Replace the values of the environment variables with your own in the `.env` file
+
+- Then install the dependencies:
+
+`npm install`
+
 ## Available Scripts
 
 In the project directory, you can run:
