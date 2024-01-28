@@ -1,13 +1,14 @@
+import { type ReactNode } from "react";
 import { Routing } from "pages";
 import { withProviders } from "./providers";
 import "./index.scss";
 
-const App = () => {
+const App = (): ReactNode => {
   return (
     <div className="app">
       <Routing />
     </div>
   );
-}
+};
 
-export default withProviders(App);
+export const AppWithProviders = withProviders(App);

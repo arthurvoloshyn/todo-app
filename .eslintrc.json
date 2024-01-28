@@ -1,0 +1,55 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:react/jsx-runtime",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["src", "node_modules"]
+            }
+        }
+    },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "react/prop-types": "off",
+                "react/require-default-props": "off"
+            }
+        }
+    ],
+    "rules": {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            { "js": "never", "jsx": "never", "ts": "never", "tsx": "never" }
+        ],
+        "import/prefer-default-export": "off",
+        "import/no-default-export": "error",
+        "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+        "react/jsx-props-no-spreading": "off",
+        "react/function-component-definition": ["error", { "namedComponents": "arrow-function" }],
+        "react/jsx-wrap-multilines": ["error", { "prop": "ignore" }]
+    }
+}

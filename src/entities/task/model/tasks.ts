@@ -1,52 +1,59 @@
 import { createStore, combine, createEffect, createEvent } from "effector";
 import { useStore } from "effector-react";
-import { normalize, schema } from "normalizr";
+import { normalize, schema, NormalizedSchema } from "normalizr";
 
 import { typicodeApi } from "shared/api";
-import type { Task } from "shared/api";
+import type { Task, TaskId } from "shared/api";
 
-export type QueryConfig = {
+export interface QueryConfig {
   completed?: boolean;
   userId?: number;
-};
-
+}
 
 const setQueryConfig = createEvent<QueryConfig>();
 
-
 // Each effect can also have its own additional processing
-const getTasksListFx = createEffect((params?: typicodeApi.tasks.GetTasksListParams) => {
-  return typicodeApi.tasks.getTasksList(params);
-});
-const getTaskByIdFx = createEffect((params: typicodeApi.tasks.GetTaskByIdParams) => {
-  return typicodeApi.tasks.getTaskById(params);
-});
-
+const getTasksListFx = createEffect(
+  (params?: typicodeApi.tasks.GetTasksListParams) =>
+    typicodeApi.tasks.getTasksList(params)
+);
+const getTaskByIdFx = createEffect(
+  (params: typicodeApi.tasks.GetTaskByIdParams) =>
+    typicodeApi.tasks.getTaskById(params)
+);
 
 // It is possible to bring normalization to the API level
+type NormalizedTaskSchema<R> = NormalizedSchema<
+  { tasks: Record<TaskId, Task> },
+  R
+>;
 export const taskSchema = new schema.Entity("tasks");
-export const normalizeTask = (data: Task) => normalize(data, taskSchema);
-export const normalizeTasks = (data: Task[]) => normalize(data, [taskSchema]);
-
+export const normalizeTask = (data: Task): NormalizedTaskSchema<TaskId> =>
+  normalize(data, taskSchema);
+export const normalizeTasks = (data: Task[]): NormalizedTaskSchema<TaskId[]> =>
+  normalize(data, [taskSchema]);
 
 // It is not critical within the demo, but you can also store it as an array without normalization
 export const tasksInitialState: Record<number, Task> = {};
 export const $tasks = createStore(tasksInitialState)
-  .on(getTasksListFx.doneData, (_, payload) => normalizeTasks(payload.data).entities.tasks)
+  .on(
+    getTasksListFx.doneData,
+    (_, payload) => normalizeTasks(payload.data).entities.tasks
+  )
   .on(getTaskByIdFx.doneData, (state, payload) => ({
     ...state,
     ...normalizeTask(payload.data).entities.tasks,
-  }))
-
+  }));
 
 // You can put it in a separate directory (for storing multiple models)
-export const $queryConfig = createStore<QueryConfig>({})
-  .on(setQueryConfig, (_, payload) => payload)
+export const $queryConfig = createStore<QueryConfig>({}).on(
+  setQueryConfig,
+  (_, payload) => payload
+);
 
 // You can add potentially debounceable logic
 export const $tasksListLoading = getTasksListFx.pending;
 export const $taskDetailsLoading = getTaskByIdFx.pending;
-
 
 /**
  * "List" of tasks
@@ -61,19 +68,18 @@ export const $tasksList = combine($tasks, (tasks) => Object.values(tasks));
 export const $tasksFiltered = combine(
   $tasksList,
   $queryConfig,
-  (tasksList, config) => {
-    return tasksList.filter(task => (
-      config.completed === undefined ||
-      task.completed === config.completed
-  ))},
+  (tasksList, config) =>
+    tasksList.filter(
+      (task) =>
+        config.completed === undefined || task.completed === config.completed
+    )
 );
 
 export const $tasksListEmpty = $tasksFiltered.map((list) => list.length === 0);
 
 // If desired, you can have a separate selector that is not tied to react bindings
-const useTask = (taskId: number): import("shared/api").Task | undefined => {
-  return useStore($tasks)[taskId];
-};
+const useTask = (taskId: number): import("shared/api").Task | undefined =>
+  useStore($tasks)[taskId];
 
 export const events = { setQueryConfig };
 

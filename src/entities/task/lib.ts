@@ -1,5 +1,6 @@
 import type { Task } from "shared/api";
 
-export const getTaskStatus = (data: Task) => {
-    return data.completed ? "CLOSED" : "OPENED";
-};
+type TaskStatus = "CLOSED" | "OPENED";
+
+export const getTaskStatus = (data: Task): TaskStatus =>
+  data.completed ? "CLOSED" : "OPENED";

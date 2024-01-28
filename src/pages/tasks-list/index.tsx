@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { Layout, Row, Col, Typography, Spin, Empty } from "shared/ui";
 import { variant, list } from "@effector/reflect";
 import { combine } from "effector";
@@ -7,7 +8,7 @@ import { ToggleTask } from "features/toggle-task";
 import { TaskRow, taskModel } from "entities/task";
 import styles from "./styles.module.scss";
 
-const TasksListPage = () => {
+export const TasksListPage = (): ReactElement => {
   return (
     <Layout className={styles.root}>
       <Layout className={styles.toolbar}>
@@ -21,6 +22,7 @@ const TasksListPage = () => {
       </Layout>
       <Layout.Content className={styles.content}>
         <Row gutter={[0, 20]} justify="center">
+          {/* eslint-disable-next-line no-use-before-define */}
           <PageContent />
         </Row>
       </Layout.Content>
@@ -28,7 +30,9 @@ const TasksListPage = () => {
   );
 };
 
-const ListItemView: React.FC<{ task: import("shared/api").Task }> = ({ task }) => {
+const ListItemView: React.FC<{ task: import("shared/api").Task }> = ({
+  task,
+}) => {
   return (
     <Col key={task.id} span={24}>
       <TaskRow
@@ -69,8 +73,7 @@ const PageContent = variant({
     ready: TasksList,
   },
   hooks: {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     mounted: taskModel.effects.getTasksListFx.prepend(() => {}),
   },
 });
-
-export default TasksListPage;
