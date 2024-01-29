@@ -1,7 +1,9 @@
 import { reflect } from "@effector/reflect";
 
 import { Radio } from "shared/ui";
+
 import { taskModel } from "entities/task";
+
 import { filtersList, getFilterById, DEFAULT_FILTER } from "./config";
 
 type Props = {

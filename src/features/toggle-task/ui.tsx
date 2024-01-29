@@ -1,6 +1,9 @@
 import { ReactElement } from "react";
+
 import { Checkbox } from "shared/ui";
+
 import { taskModel, taskLib } from "entities/task";
+
 import * as toggleTaskModel from "./model";
 
 export type ToggleTaskProps = {

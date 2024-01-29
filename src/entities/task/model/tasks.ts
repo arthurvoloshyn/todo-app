@@ -3,7 +3,6 @@ import { useStore } from "effector-react";
 import { normalize, schema, NormalizedSchema } from "normalizr";
 
 import { typicodeApi } from "shared/api";
-import type { Task, TaskId } from "shared/api";
 
 export interface QueryConfig {
   completed?: boolean;
@@ -24,17 +23,19 @@ const getTaskByIdFx = createEffect(
 
 // It is possible to bring normalization to the API level
 type NormalizedTaskSchema<R> = NormalizedSchema<
-  { tasks: Record<TaskId, Task> },
+  { tasks: Record<number, typicodeApi.models.Task> },
   R
 >;
 export const taskSchema = new schema.Entity("tasks");
-export const normalizeTask = (data: Task): NormalizedTaskSchema<TaskId> =>
-  normalize(data, taskSchema);
-export const normalizeTasks = (data: Task[]): NormalizedTaskSchema<TaskId[]> =>
-  normalize(data, [taskSchema]);
+export const normalizeTask = (
+  data: typicodeApi.models.Task
+): NormalizedTaskSchema<number> => normalize(data, taskSchema);
+export const normalizeTasks = (
+  data: typicodeApi.models.Task[]
+): NormalizedTaskSchema<number[]> => normalize(data, [taskSchema]);
 
 // It is not critical within the demo, but you can also store it as an array without normalization
-export const tasksInitialState: Record<number, Task> = {};
+export const tasksInitialState: Record<number, typicodeApi.models.Task> = {};
 export const $tasks = createStore(tasksInitialState)
   .on(
     getTasksListFx.doneData,
@@ -78,7 +79,7 @@ export const $tasksFiltered = combine(
 export const $tasksListEmpty = $tasksFiltered.map((list) => list.length === 0);
 
 // If desired, you can have a separate selector that is not tied to react bindings
-const useTask = (taskId: number): import("shared/api").Task | undefined =>
+const useTask = (taskId: number): typicodeApi.models.Task | undefined =>
   useStore($tasks)[taskId];
 
 export const events = { setQueryConfig };

@@ -1,5 +1,6 @@
 import { Suspense, ReactNode, ReactElement } from "react";
 import { BrowserRouter } from "react-router-dom";
+
 import { basePath } from "shared/config";
 import { Spin } from "shared/ui";
 

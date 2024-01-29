@@ -1,11 +1,14 @@
-import type { PropsWithChildren, ReactElement, ReactNode } from "react";
 import cn from "classnames";
+import type { PropsWithChildren, ReactElement, ReactNode } from "react";
 import { Link } from "react-router-dom";
+
+import { typicodeApi } from "shared/api";
 import { Row } from "shared/ui";
+
 import styles from "./styles.module.scss";
 
 export type TaskRowProps = PropsWithChildren<{
-  data: import("shared/api").Task;
+  data: typicodeApi.models.Task;
   titleHref?: string;
   before?: ReactNode;
 }>;

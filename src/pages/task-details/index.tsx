@@ -1,10 +1,13 @@
+import { reflect } from "@effector/reflect";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import { Layout, Result, Button } from "shared/ui";
-import { reflect } from "@effector/reflect";
+
+import { TaskCard, taskModel } from "entities/task";
 
 import { ToggleTask } from "features/toggle-task";
-import { TaskCard, taskModel } from "entities/task";
+
 import styles from "./styles.module.scss";
 
 type Props = import("react-router-dom").RouteChildrenProps<{

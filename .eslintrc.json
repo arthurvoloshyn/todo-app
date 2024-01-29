@@ -8,7 +8,10 @@
         "airbnb",
         "plugin:react/jsx-runtime",
         "plugin:@typescript-eslint/recommended",
-        "prettier"
+        "prettier",
+        "@feature-sliced/eslint-config/rules/public-api",
+        "@feature-sliced/eslint-config/rules/layers-slices",
+        "@feature-sliced/eslint-config/rules/import-order/experimental"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {

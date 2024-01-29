@@ -1,11 +1,15 @@
-import { ReactElement } from "react";
-import { Layout, Row, Col, Typography, Spin, Empty } from "shared/ui";
 import { variant, list } from "@effector/reflect";
 import { combine } from "effector";
+import { ReactElement } from "react";
+
+import { typicodeApi } from "shared/api";
+import { Layout, Row, Col, Typography, Spin, Empty } from "shared/ui";
+
+import { TaskRow, taskModel } from "entities/task";
 
 import { TasksFilters } from "features/tasks-filters";
 import { ToggleTask } from "features/toggle-task";
-import { TaskRow, taskModel } from "entities/task";
+
 import styles from "./styles.module.scss";
 
 export const TasksListPage = (): ReactElement => {
@@ -30,7 +34,7 @@ export const TasksListPage = (): ReactElement => {
   );
 };
 
-const ListItemView: React.FC<{ task: import("shared/api").Task }> = ({
+const ListItemView: React.FC<{ task: typicodeApi.models.Task }> = ({
   task,
 }) => {
   return (

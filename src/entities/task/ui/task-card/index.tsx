@@ -1,10 +1,13 @@
 import type { PropsWithChildren, ReactElement } from "react";
 import { Link } from "react-router-dom";
+
+import { typicodeApi } from "shared/api";
 import { Card } from "shared/ui";
+
 import styles from "./styles.module.scss";
 
 export type TaskCardProps = PropsWithChildren<{
-  data?: import("shared/api").Task;
+  data?: typicodeApi.models.Task;
   titleHref?: string;
 }> &
   import("antd").CardProps;
