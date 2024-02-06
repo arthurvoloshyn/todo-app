@@ -1,4 +1,3 @@
-// Either use @loadable/component, within the tutorial - not critical
 import { lazy, type ReactElement } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 

@@ -1,7 +1,9 @@
+import { taskModel } from "entities/task";
+
 export interface Filter {
   id: number;
   title: string;
-  config: import("entities/task").taskModel.QueryConfig;
+  config: taskModel.QueryConfig;
 }
 
 // We describe here the dataset of "Closed" / "Open" filters, etc.

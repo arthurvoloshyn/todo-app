@@ -1,6 +1,6 @@
 import { reflect } from "@effector/reflect";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, RouteChildrenProps } from "react-router-dom";
 
 import { Layout, Result, Button } from "shared/ui";
 
@@ -10,11 +10,7 @@ import { ToggleTask } from "features/toggle-task";
 
 import styles from "./styles.module.scss";
 
-type Props = import("react-router-dom").RouteChildrenProps<{
-  taskId: string;
-}> & {
-  isLoading: boolean;
-};
+type Props = RouteChildrenProps<{ taskId: string }> & { isLoading: boolean };
 
 const View = ({ match, isLoading }: Props) => {
   const taskId = Number(match?.params.taskId);
